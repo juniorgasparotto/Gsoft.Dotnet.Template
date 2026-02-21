@@ -1,0 +1,30 @@
+{
+  "LoggingModule": {
+    "Serilog": {
+      "Enabled": true,
+      "WriteToOpenTelemetry": true,
+      "WriteToPostgres": true,
+      "EnableDefaultMinimalLevel": true,
+      "ApiRequestLogging": "All",
+      "EnableCallerInfo": true
+    },
+    "HttpRequestResponse": {
+      "LogRequestBody": true,
+      "LogResponseBody": true,
+      "LogRequestHeaders": true,
+      "LogResponseHeaders": true,
+      "MaxBodySize": 32768,
+      "ExcludePaths": [
+        "/health",
+        "/swagger",
+        "/favicon"
+      ],
+      "SensitiveHeaders": [
+        "Authorization",
+        "Cookie",
+        "Set-Cookie",
+        "X-Api-Key"
+      ]
+    }
+  }
+}

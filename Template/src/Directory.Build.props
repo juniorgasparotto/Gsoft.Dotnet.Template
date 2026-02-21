@@ -1,0 +1,38 @@
+<!-- Raiz do repositório da aplicação (pasta src). Shared vem do submodule (este repo) em ../Shared, código em src/Shared. -->
+<Project>
+  <PropertyGroup>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <SharedRoot>$(RepoRoot)..\Shared\src\Shared</SharedRoot>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="*" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Roslynator.Analyzers" Version="*" />
+    <PackageReference Include="Roslynator.CodeFixes" Version="*" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(RepoRoot)' != '' AND $([System.String]::Copy('$(MSBuildProjectName)').Contains('.UI')) AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('Shared'))">
+    <IsUiProject>true</IsUiProject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RepoRoot)' != '' AND $([System.String]::Copy('$(MSBuildProjectName)').Contains('.Infra')) AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('Shared'))">
+    <IsInfraProject>true</IsInfraProject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RepoRoot)' != '' AND $([System.String]::Copy('$(MSBuildProjectName)').Contains('.Worker')) AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('Shared'))">
+    <IsWorkerProject>true</IsWorkerProject>
+  </PropertyGroup>
+
+  <ItemGroup Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true') AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('.UI.Web'))">
+    <ProjectReference Include="$(SharedRoot)\UI\Shared.UI.Api.Base\Shared.UI.Api.Base.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="!$([System.String]::Copy('$(MSBuildProjectDirectory)').Contains('Shared\Core\Shared.Core'))">
+    <ProjectReference Include="$(SharedRoot)\Core\Shared.Core\Shared.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(IsUiProject)' != 'true' AND '$(IsInfraProject)' != 'true' AND '$(IsWorkerProject)' != 'true'">
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Lombok.NET" Version="*" />
+  </ItemGroup>
+</Project>

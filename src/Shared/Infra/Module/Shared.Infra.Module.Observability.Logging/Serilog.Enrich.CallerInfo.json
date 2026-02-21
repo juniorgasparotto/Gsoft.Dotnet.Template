@@ -1,0 +1,28 @@
+{
+  // ============================================================================
+  // PostgreSQL - Sink customizado (Shared.Infra.Module.Observability.Logging.Sinks.Postgres)
+  // ============================================================================
+  "Serilog": {
+    "Enrich": [
+
+      // ============================================================================
+      // Shared.Infra.Module.Observability.Logging - CallerInfo (código original do pm4net/serilog-enrichers-callerinfo)
+      // ============================================================================
+      // Captura: Method, Namespace, SourceFile, LineNumber, ColumnNumber
+      // assemblyPrefix vazio + excludedPrefixes = captura TUDO menos frameworks
+      // ============================================================================
+      {
+        "Name": "WithCallerInfo",
+        "Args": {
+          "includeFileInfo": true,
+          "assemblyPrefix": "",
+          "prefix": "",
+          "startingAssembly": "${SHARED_MAIN_ASSEMBLY}",
+          "filePathDepth": 3,
+          "excludedPrefixes": [ "Microsoft", "System", "Serilog", "Quartz", "Npgsql", "Ben.Demystifier", "Shared.Infra.Module.Observability.Logging", "Lombok" ],
+          "includedPrefixes": [ "${SHARED_MAIN_ASSEMBLY_PREFIX}", "SqliteBrowser", "Databases", "Shared" ]
+        }
+      }
+    ]
+  }
+}

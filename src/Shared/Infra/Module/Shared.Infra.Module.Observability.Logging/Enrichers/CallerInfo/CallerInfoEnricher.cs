@@ -1,0 +1,199 @@
+using System.Collections.Immutable;
+using System.Diagnostics;
+using Serilog.Core;
+using Serilog.Events;
+
+namespace Shared.Infra.Module.Observability.Logging.Enrichers.CallerInfo;
+
+public class CallerInfoEnricher : ILogEventEnricher
+{
+    private readonly bool _includeFileInfo;
+    private readonly int _filePathDepth;
+    private readonly ImmutableHashSet<string> _allowedAssemblies;
+    private readonly string _prefix;
+
+    public CallerInfoEnricher(bool includeFileInfo, IEnumerable<string> allowedAssemblies, string prefix = "", int filePathDepth = 0)
+    {
+        _includeFileInfo = includeFileInfo;
+        _filePathDepth = filePathDepth;
+        _allowedAssemblies = allowedAssemblies.ToImmutableHashSet(equalityComparer: StringComparer.OrdinalIgnoreCase);
+        _prefix = prefix ?? string.Empty;
+    }
+
+    /// <summary>
+    /// Add information about the origin of the logged message, such as method, namespace, and file information (from debugging symbols).
+    /// Se houver uma exceção no LogEvent, extrai informações do stack trace da exceção.
+    /// </summary>
+    /// <param name="logEvent">The logged event.</param>
+    /// <param name="propertyFactory">The property factory</param>
+    public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
+    {
+        if (!string.IsNullOrWhiteSpace(_prefix))
+        {
+            logEvent.AddPropertyIfAbsent(new LogEventProperty("Shared.Infra.Module.Observability.Logging.Enrichers.CallerInfo_Prefix", new ScalarValue(_prefix)));
+        }
+
+        // Se houver uma exceção, extrair informações do stack trace da exceção
+        if (logEvent.Exception != null)
+        {
+            EnrichFromException(logEvent, logEvent.Exception);
+        }
+        else
+        {
+            // Sem exceção, usar o stack trace atual
+            EnrichFromCurrentStackTrace(logEvent);
+        }
+    }
+
+    /// <summary>
+    /// Extrai informações do stack trace da exceção
+    /// </summary>
+    private void EnrichFromException(LogEvent logEvent, Exception exception)
+    {
+        try
+        {
+            var exceptionStackTrace = new EnhancedStackTrace(exception);
+            var frame = exceptionStackTrace.FirstOrDefault(x => x.HasMethod() && x.MethodInfo.IsInAllowedAssembly(_allowedAssemblies));
+            
+            if (frame != null)
+            {
+                AddFrameProperties(logEvent, frame);
+            }
+            else
+            {
+                // Fallback: tentar pegar o primeiro frame da exceção que tenha informações de arquivo
+                var fallbackFrame = exceptionStackTrace.FirstOrDefault(x => x.HasMethod() && !string.IsNullOrEmpty(x.GetFileName()));
+                if (fallbackFrame != null)
+                {
+                    AddFrameProperties(logEvent, fallbackFrame);
+                }
+                else
+                {
+                    // Último fallback: usar informações básicas da exceção
+                    var firstFrame = exceptionStackTrace.FirstOrDefault(x => x.HasMethod());
+                    if (firstFrame != null)
+                    {
+                        AddFrameProperties(logEvent, firstFrame);
+                    }
+                }
+            }
+        }
+        catch
+        {
+            // Se falhar ao processar a exceção, tentar o stack trace atual
+            EnrichFromCurrentStackTrace(logEvent);
+        }
+    }
+
+    /// <summary>
+    /// Extrai informações do stack trace atual (quando não há exceção)
+    /// </summary>
+    private void EnrichFromCurrentStackTrace(LogEvent logEvent)
+    {
+        var st = EnhancedStackTrace.Current();
+        var frame = st.FirstOrDefault(x => x.HasMethod() && x.MethodInfo.IsInAllowedAssembly(_allowedAssemblies));
+        
+        if (frame != null)
+        {
+            AddFrameProperties(logEvent, frame);
+        }
+    }
+
+    /// <summary>
+    /// Adiciona as propriedades do frame ao LogEvent
+    /// </summary>
+    private void AddFrameProperties(LogEvent logEvent, StackFrame frame)
+    {
+        var enhancedFrame = frame as EnhancedStackFrame;
+        var method = enhancedFrame?.MethodInfo?.MethodBase ?? frame.GetMethod();
+        var type = method?.DeclaringType;
+
+        if (type != null)
+        {
+            logEvent.AddPropertyIfAbsent(new LogEventProperty($"{_prefix}Method", new ScalarValue(method!.Name)));
+            logEvent.AddPropertyIfAbsent(new LogEventProperty($"{_prefix}Namespace", new ScalarValue(type.FullName)));
+
+            if (_includeFileInfo)
+            {
+                var fullFileName = frame.GetFileName();
+                var fileName = GetCleanFileName(fullFileName, _filePathDepth);
+
+                if (fileName != null)
+                {
+                    logEvent.AddPropertyIfAbsent(new LogEventProperty($"{_prefix}SourceFile", new ScalarValue(fileName)));
+                    logEvent.AddPropertyIfAbsent(new LogEventProperty($"{_prefix}LineNumber", new ScalarValue(frame.GetFileLineNumber())));
+                    logEvent.AddPropertyIfAbsent(new LogEventProperty($"{_prefix}ColumnNumber", new ScalarValue(frame.GetFileColumnNumber())));
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets a clean file name from a full file path, optionally including a specified number of parent directories.
+    /// </summary>
+    /// <param name="fullFileName">The full file path.</param>
+    /// <param name="depth">The number of parent directories to include in the file name. If zero or negative, the full path is returned. If larger than the actual depth of the file, the full path is also returned.</param>
+    /// <returns>A string representing the clean file name, or null if the full file path is null or whitespace.</returns>
+    private static string? GetCleanFileName(string? fullFileName, int depth = 0)
+    {
+        if (string.IsNullOrWhiteSpace(fullFileName))
+        {
+            return null;
+        }
+
+        if (depth <= 0) // if the depth is zero or negative, return the full path
+        {
+            return fullFileName;
+        }
+
+        var fileName = Path.GetFileName(fullFileName); // get the file name
+        var dirName = Path.GetDirectoryName(fullFileName); // get the directory name
+
+        if (string.IsNullOrWhiteSpace(dirName))
+        {
+            return fileName;
+        }
+
+        var pathSegments = new List<string> { fileName }; // create a list to store the path segments and add the file name to the list
+
+        for (var i = 0; i < depth - 1; i++) // loop until the desired depth is reached or there are no more parent directories
+        {
+            var parentDirName = Path.GetFileName(dirName); // get the parent directory name
+            if (string.IsNullOrWhiteSpace(parentDirName)) // if there is no parent directory, break the loop
+            {
+                break;
+            }
+            pathSegments.Add(parentDirName); // add the parent directory name to the list
+            dirName = Path.GetDirectoryName(dirName); // get the grandparent directory name
+        }
+
+        pathSegments.Reverse(); // reverse the order of the list to get the correct path order
+        return Path.Combine(pathSegments.ToArray()); // join the path segments with the appropriate path separator and return the result
+    }
+}
+
+internal static class CallerInfoExtensions
+{
+    /// <summary>
+    /// Determines whether the resolved method originates in one of the allowed assemblies.
+    /// </summary>
+    /// <param name="method">The method to look up.</param>
+    /// <param name="allowedAssemblies">A HashSet of fully qualified assembly names to check against. If empty, allows ALL assemblies.</param>
+    /// <returns>True if the method originates from one of the allowed assemblies (or if allowedAssemblies is empty), false otherwise.</returns>
+    internal static bool IsInAllowedAssembly(this ResolvedMethod method, ImmutableHashSet<string> allowedAssemblies)
+    {
+        // Se allowedAssemblies estiver vazio, aceita TODOS os assemblies
+        if (allowedAssemblies.Count == 0)
+        {
+            return true;
+        }
+
+        var type = method.DeclaringType;
+        if (type != null)
+        {
+            var assemblyName = type.Assembly.GetName().Name;
+            return allowedAssemblies.Contains(assemblyName);
+        }
+        return false;
+    }
+}

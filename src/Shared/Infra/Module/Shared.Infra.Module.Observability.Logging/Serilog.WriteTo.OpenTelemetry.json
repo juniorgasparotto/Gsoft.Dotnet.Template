@@ -1,0 +1,41 @@
+{
+  // ============================================================================
+  // OpenTelemetry - Sink OFICIAL do Serilog (Serilog.Sinks.OpenTelemetry)
+  // ============================================================================
+  // Envia TODOS os logs do Serilog para o endpoint OTLP do Aspire Dashboard
+  // com TODAS as propriedades enriquecidas (TraceId, CallerInfo, etc).
+  //
+  // Endpoint OTLP do Aspire (configurado automaticamente via variável de ambiente):
+  // - OTEL_EXPORTER_OTLP_ENDPOINT (definido pelo AppHost)
+  //
+  // Se a variável não existir, usa o endpoint padrão abaixo.
+  //
+  // Propriedades propagadas AUTOMATICAMENTE:
+  // - TraceId, SpanId, ParentId (Activity.Current)
+  // - TODAS as propriedades dos enrichers (CallerInfo, ClientIp, etc)
+  // - Message template + propriedades estruturadas
+  // - Exception completa
+  // - Timestamp, Level
+  //
+  // Documentação: https://github.com/serilog/serilog-sinks-opentelemetry
+  // ============================================================================
+  "Serilog": {
+    "Using": [
+      "Serilog.Sinks.OpenTelemetry"
+    ],
+    "WriteTo": [
+      {
+        "Name": "OpenTelemetry",
+        "Args": {
+          "endpoint": "${OTEL_EXPORTER_OTLP_ENDPOINT?http://opentelemetry.com}",
+          "protocol": "Grpc",
+          "resourceAttributes": {
+            "service.name": "${SHARED_MAIN_ASSEMBLY_PREFIX}",
+            "service.version": "1.0.0"
+          },
+          "textFormatter": "Serilog.Formatting.Display.MessageTemplateTextFormatter, Serilog"
+        }
+      }
+    ]
+  }
+}

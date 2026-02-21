@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/.Root/src/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/Aspire/">
+    <Project Path="Aspire/Aspire.AppHost.csproj" />
+  </Folder>
+  <Folder Name="/ToDoSystem/">
+    <Project Path="ToDoSystem/Core/ToDoSystem.Core.csproj" />
+    <Project Path="ToDoSystem/Infra/ToDoSystem.Infra.csproj" />
+  </Folder>
+  <Folder Name="/ToDoSystem/UI/">
+    <Project Path="ToDoSystem/UI/ToDoSystem.UI.Api/ToDoSystem.UI.Api.csproj" />
+    <Project Path="ToDoSystem/UI/ToDoSystem.UI.Migrations.Postgres/ToDoSystem.UI.Migrations.Postgres.csproj" />
+    <Project Path="ToDoSystem/UI/ToDoSystem.UI.Migrations.Sqlite/ToDoSystem.UI.Migrations.Sqlite.csproj" />
+  </Folder>
+  <Folder Name="/ToDoSystem/Worker/">
+    <Project Path="ToDoSystem/Worker/ToDoSystem.Worker.Dashboard/ToDoSystem.Worker.Dashboard.csproj" />
+    <Project Path="ToDoSystem/Worker/ToDoSystem.Worker.Executor/ToDoSystem.Worker.Executor.csproj" />
+    <Project Path="ToDoSystem/Worker/ToDoSystem.Worker.Jobs/ToDoSystem.Worker.Jobs.csproj" />
+    <Project Path="ToDoSystem/Worker/ToDoSystem.Worker.Scheduler/ToDoSystem.Worker.Scheduler.csproj" />
+  </Folder>
+</Solution>

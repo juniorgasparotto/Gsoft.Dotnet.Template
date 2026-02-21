@@ -1,0 +1,233 @@
+@page "/"
+@implements IDisposable
+@using SqliteBrowser.Core.Models
+@inject SqliteBrowserApiService Api
+@inject SqliteBrowserStateService State
+
+<PageTitle>SQLite Browser</PageTitle>
+
+<div class="browser">
+    <section class="panel-left">
+        <div class="section">
+            <label>Banco</label>
+            <select @bind="State.SelectedDb" @bind:after="OnDatabaseChanged"
+                    class="form-control" disabled="@(State.Databases.Count == 0)">
+                <option value="">-- Selecione --</option>
+                @foreach (var db in State.Databases)
+                {
+                    <option value="@db.Name">@db.Name</option>
+                }
+            </select>
+        </div>
+        @if (State.Schema != null)
+        {
+            <div class="section">
+                <label>Tabelas</label>
+                <ul class="table-list">
+                    @foreach (var t in State.Schema.TablesList.Where(x => x.Type == "table"))
+                    {
+                        <li>
+                            <a href="#" @onclick="() => LoadTable(t.Name)" @onclick:preventDefault
+                               class="@(State.CurrentTable == t.Name ? "active" : "")">@t.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="section">
+                <label>Índices</label>
+                <ul class="table-list">
+                    @foreach (var idx in State.Schema.IndexesList)
+                    {
+                        <li><span class="index">@idx.Name</span> (@idx.Table)</li>
+                    }
+                </ul>
+            </div>
+        }
+    </section>
+    <section class="panel-right">
+        @if (!string.IsNullOrEmpty(State.LastError))
+        {
+            <div class="alert alert-error">@State.LastError</div>
+        }
+        <div class="section sql-section">
+            <label>SQL</label>
+            <textarea @bind="SqlInput" @bind:event="oninput" rows="4" class="form-control" placeholder="SELECT * FROM ..."></textarea>
+            <div class="sql-options">
+                <div class="limit-group">
+                    <label>Limite</label>
+                    <div class="limit-inputs">
+                        <input type="number" @bind="LimitValue" @bind:event="oninput" min="1" max="10000" class="form-control limit-num" disabled="@UseNoLimit" />
+                        <label class="checkbox-label">
+                            <input type="checkbox" @bind="UseNoLimit" /> SEM LIMITE
+                        </label>
+                    </div>
+                </div>
+                <button type="button" @onclick="OnExecuteSqlClick" disabled="@(_sqlExecuting || string.IsNullOrWhiteSpace(State.SelectedDb) || string.IsNullOrWhiteSpace(SqlInput))">
+                    @(_sqlExecuting ? "Executando..." : "Executar")
+                </button>
+            </div>
+        </div>
+        @* Área única de resultados: table OU sql, nunca os dois *@
+        @if (SqlResults != null && SqlResults.Count > 0)
+        {
+            @foreach (var result in SqlResults)
+            {
+                @if (result.Columns != null && result.Columns.Count > 0)
+                {
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead><tr>@foreach (var c in result.Columns) { <th>@c</th> }</tr></thead>
+                            <tbody>
+                                @if (result.Rows != null)
+                                {
+                                    @foreach (var row in result.Rows)
+                                    {
+                                        <tr>@foreach (var cell in row) { <td>@(cell?.ToString() ?? "NULL")</td> }</tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else if (result.RowsAffected.HasValue)
+                {
+                    <p class="sql-result">@result.RowsAffected linha(s) afetada(s)</p>
+                }
+            }
+        }
+        else if (State.TableData != null)
+        {
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            @foreach (var col in State.TableData.Columns)
+                            { <th>@col</th> }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var row in State.TableData.Rows)
+                        {
+                            <tr>
+                                @foreach (var cell in row)
+                                { <td>@(cell?.ToString() ?? "NULL")</td> }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p class="pagination">Exibindo @State.TableData.Rows.Count de @State.TableData.TotalRows</p>
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(State.SelectedDb) && State.Schema != null && string.IsNullOrEmpty(State.CurrentTable))
+        {
+            <p class="hint">Selecione uma tabela para visualizar os dados.</p>
+        }
+    </section>
+</div>
+
+@code {
+    private string SqlInput { get; set; } = "";
+    private List<ExecuteResult>? SqlResults { get; set; }
+    private bool _sqlExecuting;
+    private int LimitValue { get; set; } = 200;
+    private bool UseNoLimit { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        State.OnChange += StateHasChanged;
+        await LoadDatabasesAsync();
+    }
+
+    private async Task LoadDatabasesAsync()
+    {
+        State.LastError = null;
+        try
+        {
+            State.Databases = await Api.GetDatabasesAsync();
+            State.DatabasesFolderPath = await Api.GetDatabasesFolderPathAsync();
+            if (State.Databases.Count == 1)
+                State.SelectedDb = State.Databases[0].Name;
+            if (!string.IsNullOrEmpty(State.SelectedDb))
+                await LoadSchemaAsync();
+        }
+        catch (Exception ex)
+        {
+            State.LastError = ex.Message;
+        }
+        State.NotifyStateChanged();
+    }
+
+    private async Task OnDatabaseChanged()
+    {
+        State.Schema = null;
+        State.CurrentTable = null;
+        State.TableData = null;
+        SqlResults = null;
+        if (!string.IsNullOrEmpty(State.SelectedDb))
+            await LoadSchemaAsync();
+        State.NotifyStateChanged();
+    }
+
+    private async Task LoadSchemaAsync()
+    {
+        if (string.IsNullOrEmpty(State.SelectedDb)) return;
+        State.LastError = null;
+        State.Schema = await Api.GetSchemaAsync(State.SelectedDb);
+    }
+
+    private int GetEffectiveLimit()
+    {
+        if (UseNoLimit) return 0;
+        return LimitValue < 1 ? 200 : Math.Min(LimitValue, 10000);
+    }
+
+    private async Task LoadTable(string tableName)
+    {
+        State.CurrentTable = tableName;
+        State.LastError = null;
+        SqlResults = null;
+        if (string.IsNullOrEmpty(State.SelectedDb)) return;
+        var limit = GetEffectiveLimit();
+        State.TableData = await Api.GetTableDataAsync(State.SelectedDb, tableName, limit, State.PageOffset);
+        State.NotifyStateChanged();
+    }
+
+    private async Task OnExecuteSqlClick()
+    {
+        var db = State.SelectedDb;
+        var sql = SqlInput?.Trim() ?? "";
+        if (string.IsNullOrWhiteSpace(db) || string.IsNullOrWhiteSpace(sql)) return;
+
+        State.LastError = null;
+        SqlResults = null;
+        State.TableData = null;
+        State.CurrentTable = null;
+        _sqlExecuting = true;
+        StateHasChanged();
+
+        try
+        {
+            var limit = UseNoLimit ? null : (int?)GetEffectiveLimit();
+            var (success, results, error) = await Api.ExecuteSqlAsync(db, sql, limit);
+            if (success)
+                SqlResults = results ?? [];
+            else
+                State.LastError = error ?? "Erro ao executar SQL";
+        }
+        catch (Exception ex)
+        {
+            State.LastError = ex.Message;
+        }
+        finally
+        {
+            _sqlExecuting = false;
+        }
+        State.NotifyStateChanged();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+}

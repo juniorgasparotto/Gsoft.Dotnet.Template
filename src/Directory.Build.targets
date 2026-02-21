@@ -1,0 +1,7 @@
+<!-- Importado automaticamente ao final de cada projeto (equivalente ao Directory.Build.props) -->
+<Project>
+
+  <!-- Gsoft.Sdk.Web: targets customizados (ex: build.env) para projetos UI -->
+  <Import Project="$(MSBuildThisFileDirectory).Build\Targets\BuildEnv.targets" Condition="'$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true'" />
+
+</Project>

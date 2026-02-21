@@ -1,0 +1,20 @@
+{
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      //"Override": {
+      //  // ============================================================================
+      //  // Silenciar logs verbosos do framework (só mostrar Warning/Error)
+      //  // ============================================================================
+      //  "Microsoft": "Warning", // Logs gerais do framework
+      //  "Microsoft.AspNetCore": "Warning", // TODOS os logs do ASP.NET Core
+      //  "Microsoft.AspNetCore.Mvc.Infrastructure": "Warning", // Route matched, Executing action, etc
+      //  "Microsoft.AspNetCore.Routing.EndpointMiddleware": "Warning", // Executed endpoint
+      //  "Microsoft.AspNetCore.Hosting.Diagnostics": "Warning", // Request starting/finished
+      //  "System": "Warning",
+      //  "System.Net.Http.HttpClient": "Warning",
+      //  "Swashbuckle": "Warning"
+      //}
+    }
+  }
+}

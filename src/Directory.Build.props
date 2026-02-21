@@ -1,0 +1,53 @@
+<!-- Arquivo de propriedades compartilhadas aplicadas automaticamente a todos os projetos da solução -->
+<Project>
+
+  <!-- Grupo de propriedades comuns -->
+  <PropertyGroup>
+    <!-- Define a raiz do repositório como o diretório onde este arquivo está localizado -->
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+  </PropertyGroup>
+
+  <!-- Pacotes de versionamento: gera versões automaticamente a partir do histórico do Git -->
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="*" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Pacotes de análise e estilo de código -->
+  <ItemGroup>
+    <PackageReference Include="Roslynator.Analyzers" Version="*" />
+    <PackageReference Include="Roslynator.CodeFixes" Version="*" />
+  </ItemGroup>
+
+  <!-- Projetos UI: detecta se o nome do csproj contém "UI" (exclui Shared) -->
+  <PropertyGroup Condition="'$(RepoRoot)' != '' AND $([System.String]::Copy('$(MSBuildProjectName)').Contains('.UI')) AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('Shared'))">
+    <IsUiProject>true</IsUiProject>
+  </PropertyGroup>
+
+  <!-- Projetos INFRA: detecta por caminho (exclui Shared) -->
+  <PropertyGroup Condition="'$(RepoRoot)' != '' AND $([System.String]::Copy('$(MSBuildProjectName)').Contains('.Infra')) AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('Shared'))">
+    <IsInfraProject>true</IsInfraProject>
+  </PropertyGroup>
+
+  <!-- Projetos Worker: detecta por caminho (exclui Shared) -->
+  <PropertyGroup Condition="'$(RepoRoot)' != '' AND $([System.String]::Copy('$(MSBuildProjectName)').Contains('.Worker')) AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('Shared'))">
+    <IsWorkerProject>true</IsWorkerProject>
+  </PropertyGroup>
+
+  <!-- Api.Base: adiciona em projetos UI.Api (exclui Shared e .UI.Web) -->
+  <ItemGroup Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true') AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('.UI.Web'))">
+    <ProjectReference Include="$(RepoRoot)Shared\UI\Shared.UI.Api.Base\Shared.UI.Api.Base.csproj" />
+  </ItemGroup>
+
+  <!-- Shared.Core: adiciona em todos os projetos exceto no próprio Shared.Core -->
+  <ItemGroup Condition="!$([System.String]::Copy('$(MSBuildProjectDirectory)').Contains('Shared\Core\Shared.Core'))">
+    <ProjectReference Include="$(RepoRoot)Shared\Core\Shared.Core\Shared.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(IsUiProject)' != 'true' AND '$(IsInfraProject)' != 'true' AND '$(IsWorkerProject)' != 'true'">
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lombok.NET" Version="*" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-ToDoSystem.UI.Worker-7b950930-11ad-4898-9511-f546f6cdbd8b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Infra\Module\Shared.Infra.Module.Observability.OpenTelemetry\Shared.Infra.Module.Observability.OpenTelemetry.csproj" />
+  </ItemGroup>
+</Project>

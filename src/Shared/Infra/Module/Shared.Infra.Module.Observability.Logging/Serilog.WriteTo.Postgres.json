@@ -1,0 +1,125 @@
+{
+  // ============================================================================
+  // PostgreSQL - Sink customizado (Shared.Infra.Module.Observability.Logging.Sinks.Postgres)
+  // ============================================================================
+  "Serilog": {
+    "WriteTo": [
+      {
+        "Name": "PostgreSQL",
+        "Args": {
+          "connectionString": "${ConnectionStrings:LogConnection}",
+          "tableName": "logs",
+          "needAutoCreateTable": true,
+          "needAutoCreateDatabase": true,
+          "batchSizeLimit": 50,
+          "period": "0.00:00:05",
+          "useCopy": false,
+          "columnOrder": [
+            "app_name",
+            "app_version",
+            "timestamp",
+            "level",
+            "message",
+            "request_id",
+            "correlation_id",
+            "trace_id",
+            "span_id",
+            "parent_id",
+            "method",
+            "request_path",
+            "request_info",
+            "response_info",
+            "namespace",
+            "source_file",
+            "line_number",
+            "exception",
+            "properties"
+          ],
+          "columns": {
+            "app_name": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "AssemblyName" }
+            },
+            "app_version": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "AssemblyInformationalVersion" }
+            },
+            "timestamp": "TimestampColumnWriter",
+            "level": {
+              "Name": "LevelColumnWriter",
+              "Args": {
+                "renderAsText": true,
+                "dbType": "Varchar"
+              }
+            },
+            "request_id": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "RequestId" }
+            },
+            "request_path": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "RequestPath" }
+            },
+            "request_info": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": {
+                "propertyName": "RequestInfo",
+                "writeMethod": "Json",
+                "dbType": "Jsonb"
+              }
+            },
+            "response_info": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": {
+                "propertyName": "ResponseInfo",
+                "writeMethod": "Json",
+                "dbType": "Jsonb"
+              }
+            },
+            "message": "RenderedMessageColumnWriter",
+            "correlation_id": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "CorrelationId" }
+            },
+            "trace_id": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "TraceId" }
+            },
+            "span_id": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "SpanId" }
+            },
+            "parent_id": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "ParentId" }
+            },
+            "namespace": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "Namespace" }
+            },
+            "method": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "Method" }
+            },
+            "source_file": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": { "propertyName": "SourceFile" }
+            },
+            "line_number": {
+              "Name": "SinglePropertyColumnWriter",
+              "Args": {
+                "propertyName": "LineNumber",
+                "dbType": "Integer"
+              }
+            },
+            "exception": "ExceptionColumnWriter",
+            "properties": {
+              "Name": "LogEventSerializedColumnWriter",
+              "Args": { "dbType": "Jsonb" }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

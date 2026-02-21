@@ -1,0 +1,39 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a2e; color: #eee; }
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.app-header { background: #16213e; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 1rem; }
+.app-header h1 { margin: 0; font-size: 1.25rem; }
+.app-header .path { font-size: 0.8rem; color: #888; }
+.app-main { flex: 1; padding: 1rem; }
+.browser { display: flex; gap: 1.5rem; height: calc(100vh - 60px); }
+.panel-left { width: 280px; overflow-y: auto; background: #16213e; padding: 1rem; border-radius: 8px; }
+.panel-right { flex: 1; overflow-y: auto; padding: 0; }
+.section { margin-bottom: 1.5rem; }
+.section label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 0.25rem; }
+.form-control { width: 100%; padding: 0.5rem; border: 1px solid #333; border-radius: 4px; background: #0f0f23; color: #eee; }
+.table-list { list-style: none; padding: 0; margin: 0; }
+.table-list li { padding: 0.35rem 0; }
+.table-list a { color: #7eb8da; text-decoration: none; }
+.table-list a:hover, .table-list a.active { color: #4fc3f7; }
+.table-list .index { color: #b39ddb; }
+.table-container { overflow-x: auto; margin-bottom: 1rem; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.data-table th, .data-table td { padding: 0.4rem 0.6rem; text-align: left; border: 1px solid #333; }
+.data-table th { background: #16213e; }
+.data-table tr:nth-child(even) { background: rgba(255,255,255,0.03); }
+.pagination { font-size: 0.8rem; color: #888; }
+.alert-error { background: #5c2a2a; padding: 0.75rem; border-radius: 4px; color: #ff8a80; margin-bottom: 1rem; }
+.hint { color: #888; }
+.sql-section { margin-bottom: 1rem; }
+.sql-section textarea { font-family: 'Consolas', monospace; resize: vertical; min-height: 80px; }
+.sql-options { display: flex; align-items: flex-end; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.limit-group { flex: 0 0 auto; }
+.limit-group label { font-size: 0.75rem; color: #888; margin-bottom: 0.25rem; display: block; }
+.limit-inputs { display: flex; align-items: center; gap: 0.5rem; }
+.limit-num { width: 80px; }
+.checkbox-label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: #888; cursor: pointer; white-space: nowrap; }
+.checkbox-label input { margin: 0; }
+.sql-section button { padding: 0.5rem 1rem; background: #0f3460; border: none; border-radius: 4px; color: #eee; cursor: pointer; }
+.sql-section button:hover:not(:disabled) { background: #16213e; }
+.sql-section button:disabled { opacity: 0.5; cursor: not-allowed; }
+.sql-result { color: #81c784; font-size: 0.9rem; }

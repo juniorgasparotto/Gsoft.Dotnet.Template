@@ -1,0 +1,106 @@
+{
+  "Serilog": {
+    "Using": [
+      // Sinks: onde os logs são escritos
+      "Serilog.Sinks.Console", // Console com cores
+
+      // Enrichers: adicionam propriedades extras em cada log
+      "Serilog.Enrichers.Environment", // MachineName, EnvironmentUserName, EnvironmentName
+      "Serilog.Enrichers.Process", // ProcessId, ProcessName
+      "Serilog.Enrichers.Thread", // ThreadId, ThreadName
+      "Serilog.Enrichers.CorrelationId", // CorrelationId (rastrear requisições)
+      "Serilog.Enrichers.ClientInfo", // ClientIp (IP do cliente HTTP)
+      "Serilog.Enrichers.AssemblyName", // AssemblyName, AssemblyVersion, AssemblyInformationalVersion
+      "Serilog.Enrichers.Span", // TraceId, SpanId, ParentId (W3C Trace Context)
+
+      // PostgreSQL + CallerInfo customizado
+      "Shared.Infra.Module.Observability.Logging"
+    ],
+
+    "Enrich": [
+      // Permite adicionar propriedades dinamicamente via LogContext.PushProperty()
+      "FromLogContext",
+
+      // ============================================================================
+      // Serilog.Enrichers.Span - W3C Trace Context (distributed tracing)
+      // ============================================================================
+      // Lê do header HTTP "traceparent" no formato W3C:
+      //   traceparent: {version}-{trace-id}-{parent-id}-{trace-flags}
+      //   Exemplo:     00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01
+      //
+      // Campos extraídos:
+      //   - TraceId  (32 hex chars): Identificador único do trace completo
+      //                              Compartilhado entre TODOS os serviços de uma requisição
+      //                              Ex: "0af7651916cd43dd8448eb211c80319c"
+      //
+      //   - SpanId   (16 hex chars): Identificador da operação ATUAL
+      //                              Cada serviço/operação gera um novo SpanId
+      //                              Ex: "b7ad6b7169203331"
+      //
+      //   - ParentId (16 hex chars): SpanId do serviço/operação que chamou este
+      //                              Permite reconstruir a árvore de chamadas
+      //                              Ex: "1234567890abcdef"
+      //
+      // Hierarquia de exemplo:
+      //   API Gateway (SpanId: aaa) → Serviço A (SpanId: bbb, ParentId: aaa)
+      //                             → Serviço B (SpanId: ccc, ParentId: bbb)
+      // ============================================================================
+      "WithSpan",
+
+      // Serilog.Enrichers.Process - informações do processo
+      //"WithProcessId",    // PID do processo (ex: 12345)
+      //"WithProcessName",  // Nome do executável (ex: "BettingSystem")
+
+      // Serilog.Enrichers.Thread - informações da thread
+      //"WithThreadId",     // ID da thread (ex: 1)
+      //"WithThreadName",   // Nome da thread (se definido)
+
+      // Serilog.Enrichers.AssemblyName - versão do app (Nerdbank.GitVersioning)
+      "WithAssemblyName", // Nome do assembly (ex: "BettingSystem")
+      //"WithAssemblyVersion",               // Versão do assembly (ex: "1.0.0.0")
+      "WithAssemblyInformationalVersion", // Versão semântica + commit (ex: "1.0.2+b0a8bb5daf")
+
+      // Serilog.Enrichers.ClientInfo - informações do cliente HTTP
+      "WithClientIp", // IP do cliente que fez a requisição
+
+      // ============================================================================
+      // Serilog.Enrichers.CorrelationId - rastreamento de requisições
+      // ============================================================================
+      // Diferente do TraceId (formato fixo W3C), o CorrelationId aceita QUALQUER valor
+      // Útil para passar IDs de negócio, tokens, ou identificadores customizados
+      //
+      // Header HTTP: correlation-id: meu-valor-qualquer-123
+      //
+      // Se não enviado, gera automaticamente um GUID
+      // Requer: builder.Services.AddHttpContextAccessor() no Startup
+      // ============================================================================
+      {
+        "Name": "WithCorrelationId",
+        "Args": {
+          "headerName": "correlation-id", // Header HTTP para ler o correlation-id
+          "addValueIfHeaderAbsence": false // Gera um novo GUID se não existir
+        }
+      }
+
+      // Serilog.Enrichers.Environment - informações do ambiente
+      //"WithMachineName",        // Nome do computador (ex: "PC-JUNIOR")
+      //"WithEnvironmentUserName", // Usuário do sistema (ex: "Junior")
+      //"WithEnvironmentName",     // ASPNETCORE_ENVIRONMENT (ex: "Development")
+
+    ],
+
+    "WriteTo": [
+      // ============================================================================
+      // Console - logs coloridos no terminal
+      // ============================================================================
+      {
+        "Name": "Console",
+        "Args": {
+          "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console",
+          //"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level,-5} {Message:lj} PROPS={Properties:j}{NewLine}{Exception}",
+          "outputTemplate": "[{Timestamp:yyyy-MM-dd HH:mm:ss,fff}] [{Level}] [{ThreadId:00}] [{SourceContext}] - {Message} {Exception} {NewLine}"
+        }
+      }
+    ]
+  }
+}

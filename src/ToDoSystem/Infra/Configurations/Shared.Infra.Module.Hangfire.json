@@ -1,0 +1,8 @@
+{
+  "WorkerModule": {
+    "StorageProvider": "SQLite",
+    "ConnectionString": "${ConnectionStrings:HangfireSqlite}",
+    "DashboardPath": "",
+    "WorkerCount": 1
+  }
+}

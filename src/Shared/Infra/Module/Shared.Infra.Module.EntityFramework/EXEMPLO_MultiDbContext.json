@@ -1,0 +1,67 @@
+{
+  "EntityFrameworkModule": {
+    "Enabled": true,
+    "DbContexts": {
+      "BettingDbContext": {
+        "TypeName": "BettingDbContext",
+        "DefaultProvider": "Sqlite",
+        "EnableLogging": true,
+        "Providers": {
+          "Sqlite": {
+            "Enabled": true,
+            "ConnectionString": "Data Source=betting.db",
+            "MigrationsAssembly": "??",
+            "MigrationsHistoryTable": "__EFMigrationsHistory_Betting"
+          },
+          "Postgres": {
+            "Enabled": false,
+            "ConnectionString": "Host=localhost;Port=5432;Database=betting;Username=postgres;Password=postgres",
+            "MigrationsAssembly": "??",
+            "MigrationsHistoryTable": "__EFMigrationsHistory_Betting"
+          }
+        }
+      },
+      "TodoDbContext": {
+        "TypeName": "TodoDbContext",
+        "DefaultProvider": "Sqlite",
+        "Providers": {
+          "Sqlite": {
+            "Enabled": true,
+            "ConnectionString": "Data Source=todo.db",
+            "MigrationsAssembly": "??",
+            "MigrationsHistoryTable": "__EFMigrationsHistory_Todo"
+          },
+          "Postgres": {
+            "Enabled": false,
+            "ConnectionString": "Host=localhost;Port=5432;Database=todo;Username=postgres;Password=postgres",
+            "MigrationsAssembly": "??",
+            "MigrationsHistoryTable": "__EFMigrationsHistory_Todo"
+          }
+        }
+      },
+      "NotificationDbContext": {
+        "TypeName": "NotificationDbContext",
+        "DefaultProvider": "Sqlite",
+        "Providers": {
+          "Sqlite": {
+            "Enabled": true,
+            "ConnectionString": "Data Source=notifications.db",
+            "MigrationsAssembly": "??",
+            "MigrationsHistoryTable": "__EFMigrationsHistory_Notifications"
+          },
+          "Postgres": {
+            "Enabled": false,
+            "ConnectionString": "Host=localhost;Port=5432;Database=notifications;Username=postgres;Password=postgres",
+            "MigrationsAssembly": "??",
+            "MigrationsHistoryTable": "__EFMigrationsHistory_Notifications"
+          }
+        }
+      }
+    },
+    "Behavior": {
+      "AutoApplyMigrations": false,
+      "AutoCreateDatabase": false,
+      "DefaultDeleteBehavior": "Restrict"
+    }
+  }
+}

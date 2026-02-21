@@ -1,0 +1,60 @@
+<Solution>
+  <Folder Name="/.Root/">
+    <File Path="../.gitignore" />
+    <File Path="../README.md" />
+    <File Path="../version.json" />
+  </Folder>
+  <Folder Name="/.Root/src/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/Aspire/">
+    <Project Path="Aspire/Aspire.AppHost.csproj" />
+  </Folder>
+  <Folder Name="/ToDoSystem/">
+    <Project Path="ToDoSystem/Core/ToDoSystem.Core.csproj" />
+    <Project Path="ToDoSystem/Infra/ToDoSystem.Infra.csproj" />
+  </Folder>
+  
+  <Folder Name="/ToDoSystem/UI/">
+    <Project Path="ToDoSystem/UI/ToDoSystem.UI.Api/ToDoSystem.UI.Api.csproj" />
+    <Project Path="ToDoSystem/UI/ToDoSystem.UI.Migrations.Postgres/ToDoSystem.UI.Migrations.Postgres.csproj" />
+    <Project Path="ToDoSystem/UI/ToDoSystem.UI.Migrations.Sqlite/ToDoSystem.UI.Migrations.Sqlite.csproj" />
+  </Folder>
+
+  <Folder Name="/ToDoSystem/Worker/">
+    <Project Path="ToDoSystem/Worker/ToDoSystem.Worker.Dashboard/ToDoSystem.Worker.Dashboard.csproj" />
+    <Project Path="ToDoSystem/Worker/ToDoSystem.Worker.Executor/ToDoSystem.Worker.Executor.csproj" />
+    <Project Path="ToDoSystem/Worker/ToDoSystem.Worker.Jobs/ToDoSystem.Worker.Jobs.csproj" />
+    <Project Path="ToDoSystem/Worker/ToDoSystem.Worker.Scheduler/ToDoSystem.Worker.Scheduler.csproj" />
+  </Folder>
+  
+  <Folder Name="/Databases/" />
+  <Folder Name="/Databases/Core/">
+    <Project Path="Databases/Core/SqliteBrowser.Core/SqliteBrowser.Core.csproj" />
+  </Folder>
+  <Folder Name="/Databases/Infra/">
+    <Project Path="Databases/Infra/SqliteBrowser.Infra/SqliteBrowser.Infra.csproj" />
+  </Folder>
+  <Folder Name="/Databases/UI/">
+    <Project Path="Databases/UI/SqliteBrowser.UI.Api/SqliteBrowser.UI.Api.csproj" />
+    <Project Path="Databases/UI/SqliteBrowser.UI.Web/SqliteBrowser.UI.Web.csproj" />
+  </Folder>
+  <Folder Name="/Shared/" />
+  <Folder Name="/Shared/Core/">
+    <Project Path="Shared/Core/Shared.Core/Shared.Core.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Infra/" />
+  <Folder Name="/Shared/Infra/Module/">
+    <Project Path="Shared/Infra/Module/Shared.Infra.Module.Base/Shared.Infra.Module.Base.csproj" />
+    <Project Path="Shared/Infra/Module/Shared.Infra.Module.EntityFramework/Shared.Infra.Module.EntityFramework.csproj" />
+    <Project Path="Shared/Infra/Module/Shared.Infra.Module.Observability.Logging/Shared.Infra.Module.Observability.Logging.csproj" />
+    <Project Path="Shared/Infra/Module/Shared.Infra.Module.Observability.OpenTelemetry/Shared.Infra.Module.Observability.OpenTelemetry.csproj" />
+    <Project Path="Shared/Infra/Module/Shared.Infra.Module.ServiceScan/Shared.Infra.Module.ServiceScan.csproj" />
+    <Project Path="Shared/Infra/Module/Shared.Infra.Module.Hangfire/Shared.Infra.Module.Hangfire.csproj" />
+  </Folder>
+  <Folder Name="/Shared/UI/">
+    <Project Path="Shared/UI/Shared.UI.Api.Base/Shared.UI.Api.Base.csproj" />
+  </Folder>
+
+</Solution>

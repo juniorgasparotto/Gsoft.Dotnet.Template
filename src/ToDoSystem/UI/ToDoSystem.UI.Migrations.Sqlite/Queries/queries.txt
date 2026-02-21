@@ -1,0 +1,1404 @@
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-16 19:26:20.7926492+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260216192556_20260216_162545', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-17 02:36:56.1463759+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+DELETE FROM "todo_items"
+WHERE "id" = 1;
+SELECT changes();
+
+
+
+
+DELETE FROM "todo_items"
+WHERE "id" = 2;
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260217023615_20260216_233552', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+PRAGMA journal_mode = 'wal';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsLock" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK___EFMigrationsLock" PRIMARY KEY,
+    "Timestamp" TEXT NOT NULL
+);
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-17 23:34:11.8746125+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+CREATE TABLE "todo_items" (
+    -- Identificador único do item
+    "id" INTEGER NOT NULL CONSTRAINT "PK_todo_items" PRIMARY KEY AUTOINCREMENT,
+
+    -- Título/tarefa do item
+    "Title" TEXT NOT NULL,
+
+    -- Descrição opcional do item
+    "Description" TEXT NULL,
+
+    -- Indica se o item está concluído
+    "IsCompleted" INTEGER NOT NULL DEFAULT 0,
+
+    -- Data e hora de criação do item
+    "CreatedAt" TEXT NOT NULL,
+
+    -- Data e hora da última atualização do item
+    "UpdatedAt" TEXT NULL
+);
+
+
+
+INSERT INTO "todo_items" ("id", "CreatedAt", "Description", "Title", "UpdatedAt")
+VALUES (1, '2025-01-01 00:00:00', 'Esta é uma tarefa de exemplo.', 'Bem-vindo ao ToDo - OIOIOIOI', NULL);
+SELECT changes();
+
+
+
+
+INSERT INTO "todo_items" ("id", "CreatedAt", "Description", "IsCompleted", "Title", "UpdatedAt")
+VALUES (2, '2025-01-01 00:00:00', 'Revisar configurações iniciais.', 1, 'Configurar o projeto', '2025-01-02 00:00:00');
+SELECT changes();
+
+
+
+
+CREATE INDEX "IX_todo_items_CreatedAt" ON "todo_items" ("CreatedAt");
+
+
+
+CREATE INDEX "IX_todo_items_IsCompleted" ON "todo_items" ("IsCompleted");
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260217233342_20260217_203335', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-18 21:23:45.8165842+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260217233435_20260217_203429', '10.0.3');
+
+
+
+DELETE FROM "todo_items"
+WHERE "id" = 1;
+SELECT changes();
+
+
+
+
+DELETE FROM "todo_items"
+WHERE "id" = 2;
+SELECT changes();
+
+
+
+
+ALTER TABLE "todo_items" ADD "Teste" INTEGER NOT NULL DEFAULT 0;
+
+
+
+CREATE TABLE "ef_temp_todo_items" (
+    -- Identificador único do item
+    "id" INTEGER NOT NULL CONSTRAINT "PK_todo_items" PRIMARY KEY AUTOINCREMENT,
+
+    -- Data e hora de criação do item
+    "CreatedAt" TEXT NOT NULL,
+
+    -- Descrição opcional do item
+    "Description" TEXT NULL,
+
+    -- Indica se o item está concluído
+    "IsCompleted" INTEGER NOT NULL DEFAULT 0,
+
+    -- Campo de teste para demonstração
+    "Teste" INTEGER NOT NULL,
+
+    -- Título/tarefa do item
+    "Title" TEXT NOT NULL,
+
+    -- Data e hora da última atualização do item
+    "UpdatedAt" TEXT NULL
+);
+
+
+
+INSERT INTO "ef_temp_todo_items" ("id", "CreatedAt", "Description", "IsCompleted", "Teste", "Title", "UpdatedAt")
+SELECT "id", "CreatedAt", "Description", "IsCompleted", "Teste", "Title", "UpdatedAt"
+FROM "todo_items";
+
+
+
+PRAGMA foreign_keys = 0;
+
+
+
+DROP TABLE "todo_items";
+
+
+
+ALTER TABLE "ef_temp_todo_items" RENAME TO "todo_items";
+
+
+
+PRAGMA foreign_keys = 1;
+
+
+
+CREATE INDEX "IX_todo_items_CreatedAt" ON "todo_items" ("CreatedAt");
+
+
+
+CREATE INDEX "IX_todo_items_IsCompleted" ON "todo_items" ("IsCompleted");
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218212213_20260218_182145', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-18 21:28:42.7205265+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+ALTER TABLE "todo_items" ADD "Teste2" INTEGER NOT NULL DEFAULT 0;
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218212815_20260218_182802', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-18 21:35:51.9456889+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218213526_20260218_183519', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-18 22:01:08.7198526+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218215129_20260218_185121', '10.0.3');
+
+
+
+CREATE TABLE "TypeEnum" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_TypeEnum" PRIMARY KEY,
+    "CreatedBy" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+    "Name" TEXT NOT NULL
+);
+
+
+
+INSERT INTO "TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+VALUES (0, 'Seed', '2000-01-01 00:00:00', 'Value1');
+SELECT changes();
+
+INSERT INTO "TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+VALUES (1, 'Seed', '2000-01-01 00:00:00', 'Value2');
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218220032_20260218_190018', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-18 22:17:04.421377+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+INSERT INTO "TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+VALUES (2, 'Seed', '2000-01-01 00:00:00', 'Value3');
+SELECT changes();
+
+
+
+
+CREATE TABLE "ef_temp_TypeEnum" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_TypeEnum" PRIMARY KEY,
+    "CreatedBy" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "Name" TEXT NOT NULL
+);
+
+
+
+INSERT INTO "ef_temp_TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+SELECT "Id", "CreatedBy", "CreatedDate", "Name"
+FROM "TypeEnum";
+
+
+
+PRAGMA foreign_keys = 0;
+
+
+
+DROP TABLE "TypeEnum";
+
+
+
+ALTER TABLE "ef_temp_TypeEnum" RENAME TO "TypeEnum";
+
+
+
+PRAGMA foreign_keys = 1;
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218221403_20260218_191354', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-18 22:18:05.7063215+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+DELETE FROM "TypeEnum"
+WHERE "Id" = 1;
+SELECT changes();
+
+
+
+
+DELETE FROM "TypeEnum"
+WHERE "Id" = 2;
+SELECT changes();
+
+
+
+
+UPDATE "TypeEnum" SET "Name" = 'Value3'
+WHERE "Id" = 0;
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218221738_20260218_191730', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-18 22:19:11.9001712+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+UPDATE "TypeEnum" SET "Name" = 'Value5'
+WHERE "Id" = 0;
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218221846_20260218_191838', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-18 22:22:06.7886117+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+UPDATE "TypeEnum" SET "Name" = 'Valor para testes'
+WHERE "Id" = 0;
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218222142_20260218_192134', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsLock" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK___EFMigrationsLock" PRIMARY KEY,
+    "Timestamp" TEXT NOT NULL
+);
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-19 01:32:13.971965+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+CREATE TABLE "todo_items" (
+    -- Identificador único do item
+    "id" INTEGER NOT NULL CONSTRAINT "PK_todo_items" PRIMARY KEY AUTOINCREMENT,
+
+    -- Título/tarefa do item
+    "Title" TEXT NOT NULL,
+
+    -- Descrição opcional do item
+    "Description" TEXT NULL,
+
+    -- Indica se o item está concluído
+    "IsCompleted" INTEGER NOT NULL DEFAULT 0,
+
+    -- Data e hora de criação do item
+    "CreatedAt" TEXT NOT NULL,
+
+    -- Data e hora da última atualização do item
+    "UpdatedAt" TEXT NULL
+);
+
+
+
+INSERT INTO "todo_items" ("id", "CreatedAt", "Description", "Title", "UpdatedAt")
+VALUES (1, '2025-01-01 00:00:00', 'Esta é uma tarefa de exemplo.', 'Bem-vindo ao ToDo - OIOIOIOI', NULL);
+SELECT changes();
+
+
+
+
+INSERT INTO "todo_items" ("id", "CreatedAt", "Description", "IsCompleted", "Title", "UpdatedAt")
+VALUES (2, '2025-01-01 00:00:00', 'Revisar configurações iniciais.', 1, 'Configurar o projeto', '2025-01-02 00:00:00');
+SELECT changes();
+
+
+
+
+CREATE INDEX "IX_todo_items_CreatedAt" ON "todo_items" ("CreatedAt");
+
+
+
+CREATE INDEX "IX_todo_items_IsCompleted" ON "todo_items" ("IsCompleted");
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260217233342_20260217_203335', '10.0.3');
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260217233435_20260217_203429', '10.0.3');
+
+
+
+DELETE FROM "todo_items"
+WHERE "id" = 1;
+SELECT changes();
+
+
+
+
+DELETE FROM "todo_items"
+WHERE "id" = 2;
+SELECT changes();
+
+
+
+
+ALTER TABLE "todo_items" ADD "Teste" INTEGER NOT NULL DEFAULT 0;
+
+
+
+CREATE TABLE "ef_temp_todo_items" (
+    -- Identificador único do item
+    "id" INTEGER NOT NULL CONSTRAINT "PK_todo_items" PRIMARY KEY AUTOINCREMENT,
+
+    -- Data e hora de criação do item
+    "CreatedAt" TEXT NOT NULL,
+
+    -- Descrição opcional do item
+    "Description" TEXT NULL,
+
+    -- Indica se o item está concluído
+    "IsCompleted" INTEGER NOT NULL DEFAULT 0,
+
+    -- Campo de teste para demonstração
+    "Teste" INTEGER NOT NULL,
+
+    -- Título/tarefa do item
+    "Title" TEXT NOT NULL,
+
+    -- Data e hora da última atualização do item
+    "UpdatedAt" TEXT NULL
+);
+
+
+
+INSERT INTO "ef_temp_todo_items" ("id", "CreatedAt", "Description", "IsCompleted", "Teste", "Title", "UpdatedAt")
+SELECT "id", "CreatedAt", "Description", "IsCompleted", "Teste", "Title", "UpdatedAt"
+FROM "todo_items";
+
+
+
+PRAGMA foreign_keys = 0;
+
+
+
+DROP TABLE "todo_items";
+
+
+
+ALTER TABLE "ef_temp_todo_items" RENAME TO "todo_items";
+
+
+
+PRAGMA foreign_keys = 1;
+
+
+
+CREATE INDEX "IX_todo_items_CreatedAt" ON "todo_items" ("CreatedAt");
+
+
+
+CREATE INDEX "IX_todo_items_IsCompleted" ON "todo_items" ("IsCompleted");
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218212213_20260218_182145', '10.0.3');
+
+
+
+ALTER TABLE "todo_items" ADD "Teste2" INTEGER NOT NULL DEFAULT 0;
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218212815_20260218_182802', '10.0.3');
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218213526_20260218_183519', '10.0.3');
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218215129_20260218_185121', '10.0.3');
+
+
+
+CREATE TABLE "TypeEnum" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_TypeEnum" PRIMARY KEY,
+    "CreatedBy" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+    "Name" TEXT NOT NULL
+);
+
+
+
+INSERT INTO "TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+VALUES (0, 'Seed', '2000-01-01 00:00:00', 'Value1');
+SELECT changes();
+
+INSERT INTO "TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+VALUES (1, 'Seed', '2000-01-01 00:00:00', 'Value2');
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218220032_20260218_190018', '10.0.3');
+
+
+
+INSERT INTO "TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+VALUES (2, 'Seed', '2000-01-01 00:00:00', 'Value3');
+SELECT changes();
+
+
+
+
+CREATE TABLE "ef_temp_TypeEnum" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_TypeEnum" PRIMARY KEY,
+    "CreatedBy" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "Name" TEXT NOT NULL
+);
+
+
+
+INSERT INTO "ef_temp_TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+SELECT "Id", "CreatedBy", "CreatedDate", "Name"
+FROM "TypeEnum";
+
+
+
+PRAGMA foreign_keys = 0;
+
+
+
+DROP TABLE "TypeEnum";
+
+
+
+ALTER TABLE "ef_temp_TypeEnum" RENAME TO "TypeEnum";
+
+
+
+PRAGMA foreign_keys = 1;
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218221403_20260218_191354', '10.0.3');
+
+
+
+DELETE FROM "TypeEnum"
+WHERE "Id" = 1;
+SELECT changes();
+
+
+
+
+DELETE FROM "TypeEnum"
+WHERE "Id" = 2;
+SELECT changes();
+
+
+
+
+UPDATE "TypeEnum" SET "Name" = 'Value3'
+WHERE "Id" = 0;
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218221738_20260218_191730', '10.0.3');
+
+
+
+UPDATE "TypeEnum" SET "Name" = 'Value5'
+WHERE "Id" = 0;
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218221846_20260218_191838', '10.0.3');
+
+
+
+UPDATE "TypeEnum" SET "Name" = 'Valor para testes'
+WHERE "Id" = 0;
+SELECT changes();
+
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260218222142_20260218_192134', '10.0.3');
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260219013142_20260218_223134', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsLock" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK___EFMigrationsLock" PRIMARY KEY,
+    "Timestamp" TEXT NOT NULL
+);
+
+
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2026-02-19 03:00:37.6086359+00:00');
+SELECT changes();
+
+
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+
+
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+CREATE TABLE "TestEnum" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_TestEnum" PRIMARY KEY,
+    "CreatedBy" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "Name" TEXT NOT NULL
+);
+
+
+
+CREATE TABLE "todo_items" (
+    -- Identificador único do item
+    "id" INTEGER NOT NULL CONSTRAINT "PK_todo_items" PRIMARY KEY AUTOINCREMENT,
+
+    -- Título/tarefa do item
+    "Title" TEXT NOT NULL,
+
+    -- Campo de teste para demonstração
+    "Teste" INTEGER NOT NULL,
+
+    "Teste2" INTEGER NOT NULL,
+
+    -- Descrição opcional do item
+    "Description" TEXT NULL,
+
+    -- Indica se o item está concluído
+    "IsCompleted" INTEGER NOT NULL DEFAULT 0,
+
+    -- Data e hora de criação do item
+    "CreatedAt" TEXT NOT NULL,
+
+    -- Data e hora da última atualização do item
+    "UpdatedAt" TEXT NULL
+);
+
+
+
+CREATE TABLE "TypeEnum" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_TypeEnum" PRIMARY KEY,
+    "CreatedBy" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "Name" TEXT NOT NULL
+);
+
+
+
+INSERT INTO "TestEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+VALUES (0, 'Seed', '2000-01-01 00:00:00', 'Test');
+SELECT changes();
+
+
+
+
+INSERT INTO "TypeEnum" ("Id", "CreatedBy", "CreatedDate", "Name")
+VALUES (0, 'Seed', '2000-01-01 00:00:00', 'Valor para testes');
+SELECT changes();
+
+
+
+
+CREATE INDEX "IX_todo_items_CreatedAt" ON "todo_items" ("CreatedAt");
+
+
+
+CREATE INDEX "IX_todo_items_IsCompleted" ON "todo_items" ("IsCompleted");
+
+
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20260219030013_20260219_000006', '10.0.3');
+
+
+
+DELETE FROM "__EFMigrationsLock";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+
+
