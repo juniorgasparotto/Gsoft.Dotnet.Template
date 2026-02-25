@@ -1,29 +1,29 @@
 # Gsoft – Template de aplicação .NET
 
-Este repositório contém o **template Gsoft**: um template .NET que gera uma solução com Aspire, UI.Api, Workers (Jobs, Executor, Dashboard, Scheduler) e Migrations. O código **Shared** não é incluído no template; o projeto gerado usa um **submodule Git** apontando para **este repositório** para obter o Shared.
+Este repositório contém o **template Gsoft**: um template .NET que gera uma solução com Aspire, UI.Api, Workers (Jobs, Executor, Dashboard, Scheduler) e Migrations. O código **Shared** não é incluído no template; o projeto gerado usa um **submodule Git** em `src/.Shared` apontando para **este repositório**.
 
 ---
 
 ## Como instalar o template
 
 1. Clone este repositório (ou baixe e extraia).
-2. Na pasta do repositório, instale o template a partir da pasta `Template`:
+2. Instale o template a partir da **raiz** do repositório:
 
 ```bash
-cd Template
+cd Gsoft.Dotnet.Template
 dotnet new install .
 ```
 
 Ou usando o caminho absoluto:
 
 ```bash
-dotnet new install "C:\caminho\para\Gsoft.Dotnet.Template\Template"
+dotnet new install "C:\caminho\para\Gsoft.Dotnet.Template"
 ```
 
-Para desinstalar depois:
+Para desinstalar:
 
 ```bash
-dotnet new uninstall "C:\caminho\para\Gsoft.Dotnet.Template\Template"
+dotnet new uninstall "C:\caminho\para\Gsoft.Dotnet.Template"
 ```
 
 ---
@@ -36,10 +36,10 @@ dotnet new uninstall "C:\caminho\para\Gsoft.Dotnet.Template\Template"
 dotnet new gsoftapp -n MeuProjeto -o MeuProjeto
 ```
 
-- **`-n MeuProjeto`** — nome da aplicação (substitui "ToDoSystem" em pastas e projetos).
+- **`-n MeuProjeto`** — nome da aplicação (substitui "ToDoSystem" em pastas, projetos e nomes dos .slnx).
 - **`-o MeuProjeto`** — pasta de saída.
 
-2. Inicialize o Git e o submodule **Shared** (este repositório):
+2. Inicialize o Git e o submodule **Shared**:
 
 ```bash
 cd MeuProjeto
@@ -47,24 +47,38 @@ git init
 git submodule update --init
 ```
 
-3. Abra a solution e faça o build:
+Ou execute o script gerado: `init-submodule.cmd` (Windows) / `./init-submodule.sh` (Linux/macOS). O template tenta rodar o script automaticamente após a criação (quando possível).
+
+3. Build:
 
 ```bash
 cd src
-dotnet build
+dotnet build -f MeuProjeto.slnx
 ```
 
-Ou abra `MeuProjeto\src\Solution.slnx` no Visual Studio / Rider.
-
-O template já inclui o arquivo **`.gitmodules`** apontando para este repo; o submodule é clonado na pasta `Shared/`, e o código Shared fica em `Shared/src/Shared` (referenciado por `$(SharedRoot)` no MSBuild).
+Ou abra `MeuProjeto\src\MeuProjeto.slnx` (só app) ou `MeuProjetoAll.slnx` (app + Shared) no Visual Studio / Rider.
 
 ---
 
-## Estrutura do repositório
+## Estrutura gerada
 
-| Pasta        | Conteúdo |
-|-------------|----------|
-| **`Template/`** | Conteúdo do template (`.template.config`, `src`, `.gitmodules`, etc.). Use com `dotnet new install` e `dotnet new gsoftapp`. |
-| **`src/`**      | Solução para desenvolvimento de Shared e Databases (SqliteBrowser). Aspire e o app de exemplo (ToDoSystem) existem só no `Template/`. |
+| Item | Descrição |
+|------|-----------|
+| **`.github/`** | Pasta para workflows (vazia no template). |
+| **`src/.Shared/`** | Submodule (este repo). Código Shared em `src/.Shared/src/Shared`. |
+| **`src/.App/`** | Aspire + projeto da aplicação (ex.: MeuProjeto). |
+| **`src/<Nome>.slnx`** | Solution só com .App. |
+| **`src/<Nome>All.slnx`** | Solution com .App + .Shared. |
+| **`src/Directory.Build.props`** | `SharedRoot = .Shared\src\Shared`. |
+| **`README.md`, `.gitignore`, `version.json`, `.gitmodules`** | Na raiz do projeto. |
 
-O template **não** inclui código Shared; o projeto gerado referencia Shared via submodule (este repositório). Mais detalhes em [Template/README.md](Template/README.md).
+Os arquivos `ToDoSystem.slnx` (só app) e `ToDoSystemAll.slnx` (app + Shared) ficam em `src/`.
+
+---
+
+## Estrutura deste repositório
+
+| Pasta | Conteúdo |
+|-------|----------|
+| **Raiz do repo** | `.template.config/`, `.github/`, `src/`, `README.md`, `.gitignore`, `version.json`, `.gitmodules`. Instale com `dotnet new install .` na raiz. |
+| **`src/`** | `.App/` (Aspire + app), `.Shared/` (submodule), `ToDoSystem.slnx`, `ToDoSystemAll.slnx`, `Solution.slnx`, build props/targets. |

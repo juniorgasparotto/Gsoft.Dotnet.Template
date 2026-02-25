@@ -3,8 +3,11 @@
 
   <!-- Grupo de propriedades comuns -->
   <PropertyGroup>
-    <!-- Define a raiz do repositório como o diretório onde este arquivo está localizado -->
     <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <!-- Este repo: .Shared/Shared. Projeto gerado (submodule): .Shared/src/Shared ou .Shared/src/.Shared/Shared -->
+    <SharedRoot Condition="Exists('$(RepoRoot).Shared\Shared\Core\Shared.Core\Shared.Core.csproj')">$(RepoRoot).Shared\Shared</SharedRoot>
+    <SharedRoot Condition="!Exists('$(RepoRoot).Shared\Shared\Core\Shared.Core\Shared.Core.csproj') AND Exists('$(RepoRoot).Shared\src\Shared\Core\Shared.Core\Shared.Core.csproj')">$(RepoRoot).Shared\src\Shared</SharedRoot>
+    <SharedRoot Condition="!Exists('$(RepoRoot).Shared\Shared\Core\Shared.Core\Shared.Core.csproj') AND Exists('$(RepoRoot).Shared\src\.Shared\Shared\Core\Shared.Core\Shared.Core.csproj')">$(RepoRoot).Shared\src\.Shared\Shared</SharedRoot>
   </PropertyGroup>
 
   <!-- Pacotes de versionamento: gera versões automaticamente a partir do histórico do Git -->
@@ -35,15 +38,16 @@
 
   <!-- Api.Base: adiciona em projetos UI.Api (exclui Shared e .UI.Web) -->
   <ItemGroup Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true') AND !$([System.String]::Copy('$(MSBuildProjectName)').Contains('.UI.Web'))">
-    <ProjectReference Include="$(RepoRoot)Shared\UI\Shared.UI.Api.Base\Shared.UI.Api.Base.csproj" />
+    <ProjectReference Include="$(SharedRoot)\UI\Shared.UI.Api.Base\Shared.UI.Api.Base.csproj" />
   </ItemGroup>
 
   <!-- Shared.Core: adiciona em todos os projetos exceto no próprio Shared.Core -->
   <ItemGroup Condition="!$([System.String]::Copy('$(MSBuildProjectDirectory)').Contains('Shared\Core\Shared.Core'))">
-    <ProjectReference Include="$(RepoRoot)Shared\Core\Shared.Core\Shared.Core.csproj" />
+    <ProjectReference Include="$(SharedRoot)\Core\Shared.Core\Shared.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(IsUiProject)' != 'true' AND '$(IsInfraProject)' != 'true' AND '$(IsWorkerProject)' != 'true'">
+  <!-- Microsoft.Extensions.Logging: só em projetos que não tenham AspNetCore (evita NU1510 em Shared.Infra.Module.*) -->
+  <ItemGroup Condition="'$(IsUiProject)' != 'true' AND '$(IsInfraProject)' != 'true' AND '$(IsWorkerProject)' != 'true' AND !$([System.String]::Copy('$(MSBuildProjectDirectory)').Contains('.Shared\Shared'))">
     <PackageReference Include="Microsoft.Extensions.Logging" Version="*" />
   </ItemGroup>
 

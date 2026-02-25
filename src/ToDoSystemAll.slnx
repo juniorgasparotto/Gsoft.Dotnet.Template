@@ -1,0 +1,38 @@
+<Solution>
+  <Folder Name="/.Root/src/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/.App/Aspire/">
+    <Project Path=".App/Aspire/Aspire.AppHost.csproj" />
+  </Folder>
+  <Folder Name="/.App/ToDoSystem/">
+    <Project Path=".App/ToDoSystem/Core/ToDoSystem.Core.csproj" />
+    <Project Path=".App/ToDoSystem/Infra/ToDoSystem.Infra.csproj" />
+  </Folder>
+  <Folder Name="/.App/ToDoSystem/UI/">
+    <Project Path=".App/ToDoSystem/UI/ToDoSystem.UI.Api/ToDoSystem.UI.Api.csproj" />
+    <Project Path=".App/ToDoSystem/UI/ToDoSystem.UI.Migrations.Postgres/ToDoSystem.UI.Migrations.Postgres.csproj" />
+    <Project Path=".App/ToDoSystem/UI/ToDoSystem.UI.Migrations.Sqlite/ToDoSystem.UI.Migrations.Sqlite.csproj" />
+  </Folder>
+  <Folder Name="/.App/ToDoSystem/Worker/">
+    <Project Path=".App/ToDoSystem/Worker/ToDoSystem.Worker.Dashboard/ToDoSystem.Worker.Dashboard.csproj" />
+    <Project Path=".App/ToDoSystem/Worker/ToDoSystem.Worker.Executor/ToDoSystem.Worker.Executor.csproj" />
+    <Project Path=".App/ToDoSystem/Worker/ToDoSystem.Worker.Jobs/ToDoSystem.Worker.Jobs.csproj" />
+    <Project Path=".App/ToDoSystem/Worker/ToDoSystem.Worker.Scheduler/ToDoSystem.Worker.Scheduler.csproj" />
+  </Folder>
+  <Folder Name="/.Shared/src/Shared/Core/">
+    <Project Path=".Shared/src/Shared/Core/Shared.Core/Shared.Core.csproj" />
+  </Folder>
+  <Folder Name="/.Shared/src/Shared/Infra/Module/">
+    <Project Path=".Shared/src/Shared/Infra/Module/Shared.Infra.Module.Base/Shared.Infra.Module.Base.csproj" />
+    <Project Path=".Shared/src/Shared/Infra/Module/Shared.Infra.Module.EntityFramework/Shared.Infra.Module.EntityFramework.csproj" />
+    <Project Path=".Shared/src/Shared/Infra/Module/Shared.Infra.Module.Observability.Logging/Shared.Infra.Module.Observability.Logging.csproj" />
+    <Project Path=".Shared/src/Shared/Infra/Module/Shared.Infra.Module.Observability.OpenTelemetry/Shared.Infra.Module.Observability.OpenTelemetry.csproj" />
+    <Project Path=".Shared/src/Shared/Infra/Module/Shared.Infra.Module.ServiceScan/Shared.Infra.Module.ServiceScan.csproj" />
+    <Project Path=".Shared/src/Shared/Infra/Module/Shared.Infra.Module.Hangfire/Shared.Infra.Module.Hangfire.csproj" />
+  </Folder>
+  <Folder Name="/.Shared/src/Shared/UI/">
+    <Project Path=".Shared/src/Shared/UI/Shared.UI.Api.Base/Shared.UI.Api.Base.csproj" />
+  </Folder>
+</Solution>

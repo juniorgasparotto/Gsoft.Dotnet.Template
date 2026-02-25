@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Scrutor" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SharedRoot)\Core\Shared.Core\Shared.Core.csproj" />
+    <ProjectReference Include="$(SharedRoot)\Infra\Module\Shared.Infra.Module.Base\Shared.Infra.Module.Base.csproj" />
+  </ItemGroup>
+
+</Project>

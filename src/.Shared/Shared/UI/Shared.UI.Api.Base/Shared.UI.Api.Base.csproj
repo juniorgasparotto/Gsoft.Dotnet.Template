@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="*" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="*" />
+    <PackageReference Include="Scalar.AspNetCore" Version="*" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SharedRoot)\Infra\Module\Shared.Infra.Module.Observability.Logging\Shared.Infra.Module.Observability.Logging.csproj" />
+    <ProjectReference Include="$(SharedRoot)\Infra\Module\Shared.Infra.Module.Observability.OpenTelemetry\Shared.Infra.Module.Observability.OpenTelemetry.csproj" />
+    <ProjectReference Include="$(SharedRoot)\Infra\Module\Shared.Infra.Module.ServiceScan\Shared.Infra.Module.ServiceScan.csproj" />
+    <ProjectReference Include="$(SharedRoot)\Infra\Module\Shared.Infra.Module.Hangfire\Shared.Infra.Module.Hangfire.csproj" />
+  </ItemGroup>
+</Project>

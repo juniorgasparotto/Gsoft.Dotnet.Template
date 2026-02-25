@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Gsoft",
+  "classifications": [ "Solution", "Aspire", "Worker", "Web" ],
+  "identity": "Gsoft.AppTemplate",
+  "name": "Gsoft App (Aspire + Workers)",
+  "shortName": "gsoftapp",
+  "sourceName": "ToDoSystem",
+  "description": "Solução .NET com Aspire, UI.Api, Workers e Migrations. Shared via submodule (este repositório).",
+  "tags": { "language": "C#", "type": "solution" },
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/bin/**",
+        "**/obj/**",
+        "**/.vs/**",
+        "**/node_modules/**",
+        "**/.template.config/**",
+        "**/.git/**",
+        "**/src/Solution.slnx",
+        "**/src/.Shared/Shared/**",
+        "**/src/.Shared/Databases/**",
+        "**/src/.Shared/.Build/**",
+        "**/src/.Shared/.git/**"
+      ]
+    }
+  ]
+}
