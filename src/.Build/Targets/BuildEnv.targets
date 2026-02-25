@@ -1,0 +1,32 @@
+<Project>
+
+  <!-- 
+    build.env: exclui o da bin e regenera sempre com DATABASES_PATH.
+    Não importa o SDK aqui - o projeto já tem Sdk="Microsoft.NET.Sdk.Web".
+    Importar geraria dependência circular via Directory.Build.targets.
+  -->
+  <UsingTask TaskName="WriteBuildEnvFile" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <FilePath ParameterType="System.String" Required="true" />
+      <DatabasesPath ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        var dir = System.IO.Path.GetDirectoryName(FilePath);
+        if (!string.IsNullOrEmpty(dir)) System.IO.Directory.CreateDirectory(dir);
+        if (System.IO.File.Exists(FilePath)) System.IO.File.Delete(FilePath);
+        var nl = System.Environment.NewLine;
+        var content = "# ---- VARIABLES FROM BUILD ----" + nl + "DATABASES_PATH=" + DatabasesPath;
+        System.IO.File.WriteAllText(FilePath, content);
+      ]]></Code>
+    </Task>
+  </UsingTask>
+  <Target Name="WriteBuildEnv" AfterTargets="Build" Condition="'$(OutputType)' == 'Exe' and '$(MSBuildProjectName)' != 'Gsoft.Sdk.Web'">
+    <PropertyGroup>
+      <_DatabasesDirAbsolute>$([System.IO.Path]::GetFullPath('$(RepoRoot)Apps\Databases'))</_DatabasesDirAbsolute>
+      <_EnvFilePath>$(OutputPath)build.env</_EnvFilePath>
+    </PropertyGroup>
+    <WriteBuildEnvFile FilePath="$(_EnvFilePath)" DatabasesPath="$(_DatabasesDirAbsolute)" />
+  </Target>
+
+</Project>

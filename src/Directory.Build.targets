@@ -1,9 +1,7 @@
 <!-- Importado automaticamente ao final de cada projeto (equivalente ao Directory.Build.props) -->
 <Project>
 
-  <!-- BuildEnv: neste repo = .Shared\.Build; projeto gerado = .Shared\src\.Build ou .Shared\src\.Shared\.Build -->
-  <Import Project="$(MSBuildThisFileDirectory).Shared\.Build\Targets\BuildEnv.targets" Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true') AND Exists('$(MSBuildThisFileDirectory).Shared\.Build\Targets\BuildEnv.targets')" />
-  <Import Project="$(MSBuildThisFileDirectory).Shared\src\.Build\Targets\BuildEnv.targets" Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true') AND !Exists('$(MSBuildThisFileDirectory).Shared\.Build\Targets\BuildEnv.targets') AND Exists('$(MSBuildThisFileDirectory).Shared\src\.Build\Targets\BuildEnv.targets')" />
-  <Import Project="$(MSBuildThisFileDirectory).Shared\src\.Shared\.Build\Targets\BuildEnv.targets" Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true') AND !Exists('$(MSBuildThisFileDirectory).Shared\.Build\Targets\BuildEnv.targets') AND !Exists('$(MSBuildThisFileDirectory).Shared\src\.Build\Targets\BuildEnv.targets') AND Exists('$(MSBuildThisFileDirectory).Shared\src\.Shared\.Build\Targets\BuildEnv.targets')" />
+  <!-- BuildEnv na raiz de src -->
+  <Import Project="$(MSBuildThisFileDirectory).Build\Targets\BuildEnv.targets" Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true') AND Exists('$(MSBuildThisFileDirectory).Build\Targets\BuildEnv.targets')" />
 
 </Project>

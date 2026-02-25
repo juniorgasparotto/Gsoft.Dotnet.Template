@@ -3,22 +3,22 @@
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
   </Folder>
-  <Folder Name="/.App/Aspire/">
-    <Project Path=".App/Aspire/Aspire.AppHost.csproj" />
+  <Folder Name="/Apps/Aspire/">
+    <Project Path="Apps/Aspire/Aspire.AppHost.csproj" />
   </Folder>
-  <Folder Name="/.App/ToDoSystem/">
-    <Project Path=".App/ToDoSystem/Core/ToDoSystem.Core.csproj" />
-    <Project Path=".App/ToDoSystem/Infra/ToDoSystem.Infra.csproj" />
+  <Folder Name="/Apps/ToDoSystem/">
+    <Project Path="Apps/ToDoSystem/Core/ToDoSystem.Core.csproj" />
+    <Project Path="Apps/ToDoSystem/Infra/ToDoSystem.Infra.csproj" />
   </Folder>
-  <Folder Name="/.App/ToDoSystem/UI/">
-    <Project Path=".App/ToDoSystem/UI/ToDoSystem.UI.Api/ToDoSystem.UI.Api.csproj" />
-    <Project Path=".App/ToDoSystem/UI/ToDoSystem.UI.Migrations.Postgres/ToDoSystem.UI.Migrations.Postgres.csproj" />
-    <Project Path=".App/ToDoSystem/UI/ToDoSystem.UI.Migrations.Sqlite/ToDoSystem.UI.Migrations.Sqlite.csproj" />
+  <Folder Name="/Apps/ToDoSystem/UI/">
+    <Project Path="Apps/ToDoSystem/UI/ToDoSystem.UI.Api/ToDoSystem.UI.Api.csproj" />
+    <Project Path="Apps/ToDoSystem/UI/ToDoSystem.UI.Migrations.Postgres/ToDoSystem.UI.Migrations.Postgres.csproj" />
+    <Project Path="Apps/ToDoSystem/UI/ToDoSystem.UI.Migrations.Sqlite/ToDoSystem.UI.Migrations.Sqlite.csproj" />
   </Folder>
-  <Folder Name="/.App/ToDoSystem/Worker/">
-    <Project Path=".App/ToDoSystem/Worker/ToDoSystem.Worker.Dashboard/ToDoSystem.Worker.Dashboard.csproj" />
-    <Project Path=".App/ToDoSystem/Worker/ToDoSystem.Worker.Executor/ToDoSystem.Worker.Executor.csproj" />
-    <Project Path=".App/ToDoSystem/Worker/ToDoSystem.Worker.Jobs/ToDoSystem.Worker.Jobs.csproj" />
-    <Project Path=".App/ToDoSystem/Worker/ToDoSystem.Worker.Scheduler/ToDoSystem.Worker.Scheduler.csproj" />
+  <Folder Name="/Apps/ToDoSystem/Worker/">
+    <Project Path="Apps/ToDoSystem/Worker/ToDoSystem.Worker.Dashboard/ToDoSystem.Worker.Dashboard.csproj" />
+    <Project Path="Apps/ToDoSystem/Worker/ToDoSystem.Worker.Executor/ToDoSystem.Worker.Executor.csproj" />
+    <Project Path="Apps/ToDoSystem/Worker/ToDoSystem.Worker.Jobs/ToDoSystem.Worker.Jobs.csproj" />
+    <Project Path="Apps/ToDoSystem/Worker/ToDoSystem.Worker.Scheduler/ToDoSystem.Worker.Scheduler.csproj" />
   </Folder>
 </Solution>

@@ -4,10 +4,11 @@
   <!-- Grupo de propriedades comuns -->
   <PropertyGroup>
     <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
-    <!-- Este repo: .Shared/Shared. Projeto gerado (submodule): .Shared/src/Shared ou .Shared/src/.Shared/Shared -->
-    <SharedRoot Condition="Exists('$(RepoRoot).Shared\Shared\Core\Shared.Core\Shared.Core.csproj')">$(RepoRoot).Shared\Shared</SharedRoot>
-    <SharedRoot Condition="!Exists('$(RepoRoot).Shared\Shared\Core\Shared.Core\Shared.Core.csproj') AND Exists('$(RepoRoot).Shared\src\Shared\Core\Shared.Core\Shared.Core.csproj')">$(RepoRoot).Shared\src\Shared</SharedRoot>
-    <SharedRoot Condition="!Exists('$(RepoRoot).Shared\Shared\Core\Shared.Core\Shared.Core.csproj') AND Exists('$(RepoRoot).Shared\src\.Shared\Shared\Core\Shared.Core\Shared.Core.csproj')">$(RepoRoot).Shared\src\.Shared\Shared</SharedRoot>
+    <!-- Shared na raiz de src -->
+    <SharedRoot Condition="Exists('$(RepoRoot)Shared\Core\Shared.Core\Shared.Core.csproj')">$(RepoRoot)Shared</SharedRoot>
+
+    <!-- WarningsAsErrors: define as warnings como erros -->
+    <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
 
   <!-- Pacotes de versionamento: gera versões automaticamente a partir do histórico do Git -->
@@ -47,7 +48,7 @@
   </ItemGroup>
 
   <!-- Microsoft.Extensions.Logging: só em projetos que não tenham AspNetCore (evita NU1510 em Shared.Infra.Module.*) -->
-  <ItemGroup Condition="'$(IsUiProject)' != 'true' AND '$(IsInfraProject)' != 'true' AND '$(IsWorkerProject)' != 'true' AND !$([System.String]::Copy('$(MSBuildProjectDirectory)').Contains('.Shared\Shared'))">
+  <ItemGroup Condition="'$(IsUiProject)' != 'true' AND '$(IsInfraProject)' != 'true' AND '$(IsWorkerProject)' != 'true' AND !$([System.String]::Copy('$(MSBuildProjectDirectory)').Contains('\Shared\'))">
     <PackageReference Include="Microsoft.Extensions.Logging" Version="*" />
   </ItemGroup>
 

@@ -1,0 +1,40 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <NoWarn>$(NoWarn);ASPIRE004</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>56d91295-5eb1-45cd-b3c0-e4e6aea6c1c4</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(RepoRoot)Shared\Core\Shared.Core\Shared.Core.csproj">
+      <IsAspireProjectResource>false</IsAspireProjectResource>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <ExcludeAssets>all</ExcludeAssets>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="$(RepoRoot)Apps\ToDoSystem\UI\ToDoSystem.UI.Api\ToDoSystem.UI.Api.csproj">
+      <IsAspireProjectResource>true</IsAspireProjectResource>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <ExcludeAssets>all</ExcludeAssets>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="$(RepoRoot)Apps\ToDoSystem\Worker\ToDoSystem.Worker.Executor\ToDoSystem.Worker.Executor.csproj">
+      <IsAspireProjectResource>true</IsAspireProjectResource>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+      <ExcludeAssets>all</ExcludeAssets>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="$(RepoRoot)Apps\ToDoSystem\Worker\ToDoSystem.Worker.Scheduler\ToDoSystem.Worker.Scheduler.csproj">
+      <IsAspireProjectResource>true</IsAspireProjectResource>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+      <ExcludeAssets>all</ExcludeAssets>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="$(RepoRoot)Apps\ToDoSystem\Worker\ToDoSystem.Worker.Dashboard\ToDoSystem.Worker.Dashboard.csproj" />
+    <ProjectReference Include="$(RepoRoot)Apps\ToDoSystem\Worker\ToDoSystem.Worker.Jobs\ToDoSystem.Worker.Jobs.csproj" />
+  </ItemGroup>
+</Project>
