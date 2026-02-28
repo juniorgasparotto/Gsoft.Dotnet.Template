@@ -36,5 +36,11 @@
     </ProjectReference>
     <ProjectReference Include="$(RepoRoot)Apps\ToDoSystem\Worker\ToDoSystem.Worker.Dashboard\ToDoSystem.Worker.Dashboard.csproj" />
     <ProjectReference Include="$(RepoRoot)Apps\ToDoSystem\Worker\ToDoSystem.Worker.Jobs\ToDoSystem.Worker.Jobs.csproj" />
+    <ProjectReference Include="$(RepoRoot)Apps\Admin\Admin.csproj">
+      <IsAspireProjectResource>true</IsAspireProjectResource>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <ExcludeAssets>all</ExcludeAssets>
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
 </Project>

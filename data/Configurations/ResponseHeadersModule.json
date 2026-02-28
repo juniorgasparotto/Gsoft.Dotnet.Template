@@ -1,0 +1,32 @@
+{
+  "ResponseHeadersModule": {
+    "Security": {
+      "XContentTypeOptions": true,
+      "XContentTypeOptionsValue": "nosniff",
+      "XFrameOptions": true,
+      "XFrameOptionsValue": "DENY",
+      "XXssProtection": true,
+      "XXssProtectionValue": "1; mode=block",
+      "ReferrerPolicy": true,
+      "ReferrerPolicyValue": "strict-origin-when-cross-origin"
+    },
+    "Application": {
+      "XApplicationName": true,
+      "XRequestId": true,
+      "XCorrelationId": true
+    },
+    "Tracing": {
+      "XTraceId": true,
+      "XSpanId": true,
+      "XParentSpanId": true,
+      "XTraceFlags": true,
+      "XTraceState": true
+    },
+    "Timing": {
+      "XRequestTime": true,
+      "XResponseTime": true,
+      "XRequestDurationSeconds": true,
+      "XRequestDurationMilliseconds": true
+    }
+  }
+}

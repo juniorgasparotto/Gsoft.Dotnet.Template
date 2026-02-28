@@ -1,0 +1,17 @@
+<!-- Copia Apps.Config para o output dos apps que referenciam -->
+<Project>
+  <Target Name="CopyAppsConfig" AfterTargets="Build"
+          Condition="'$(UseAppsConfig)' == 'true' and '$(OutputType)' == 'Exe'">
+    <PropertyGroup>
+      <_AppsConfigOut>$([System.IO.Path]::GetFullPath('$(RepoRoot)Apps\Config\bin\$(Configuration)\$(TargetFramework)\'))</_AppsConfigOut>
+    </PropertyGroup>
+    <ItemGroup>
+      <_ConfigAppSettings Include="$(_AppsConfigOut)appsettings.json" Condition="Exists('$(_AppsConfigOut)appsettings.json')" />
+      <_ConfigAppSettings Include="$(_AppsConfigOut)appsettings.Development.json" Condition="Exists('$(_AppsConfigOut)appsettings.Development.json')" />
+      <_ConfigConfigs Include="$(_AppsConfigOut)Configurations\**\*.json" Condition="Exists('$(_AppsConfigOut)Configurations')" />
+    </ItemGroup>
+    <MakeDir Directories="$(OutputPath)Config" Condition="'@(_ConfigAppSettings)' != ''" />
+    <Copy SourceFiles="@(_ConfigAppSettings)" DestinationFolder="$(OutputPath)Config" Condition="'@(_ConfigAppSettings)' != ''" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(_ConfigConfigs)" DestinationFiles="@(_ConfigConfigs->'$(OutputPath)Configurations\%(RecursiveDir)%(Filename)%(Extension)')" Condition="'@(_ConfigConfigs)' != ''" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

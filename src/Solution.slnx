@@ -11,6 +11,12 @@
   <Folder Name="/Apps/Aspire/">
     <Project Path="Apps/Aspire/Aspire.AppHost.csproj" />
   </Folder>
+  <Folder Name="/Apps/Config/">
+    <Project Path="Apps/Config/Apps.Config.csproj" />
+  </Folder>
+  <Folder Name="/Apps/Admin/">
+    <Project Path="Apps/Admin/Admin.csproj" />
+  </Folder>
   <Folder Name="/Apps/ToDoSystem/">
     <Project Path="Apps/ToDoSystem/Core/ToDoSystem.Core.csproj" />
     <Project Path="Apps/ToDoSystem/Infra/ToDoSystem.Infra.csproj" />
@@ -36,6 +42,7 @@
   <Folder Name="/Apps/Databases/UI/">
     <Project Path="Apps/Databases/UI/SqliteBrowser.UI.Api/SqliteBrowser.UI.Api.csproj" />
     <Project Path="Apps/Databases/UI/SqliteBrowser.UI.Web/SqliteBrowser.UI.Web.csproj" />
+    <Project Path="Apps/Databases/UI/SqliteBrowser.UI/SqliteBrowser.UI.csproj" />
   </Folder>
   <Folder Name="/Shared/Core/">
     <Project Path="Shared/Core/Shared.Core/Shared.Core.csproj" />

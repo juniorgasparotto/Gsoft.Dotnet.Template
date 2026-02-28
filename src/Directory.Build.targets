@@ -2,6 +2,9 @@
 <Project>
 
   <!-- BuildEnv na raiz de src -->
-  <Import Project="$(MSBuildThisFileDirectory).Build\Targets\BuildEnv.targets" Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true') AND Exists('$(MSBuildThisFileDirectory).Build\Targets\BuildEnv.targets')" />
+  <Import Project="$(MSBuildThisFileDirectory).Build\Targets\BuildEnv.targets" Condition="('$(IsUiProject)' == 'true' OR '$(IsWorkerProject)' == 'true' OR '$(UseAppsConfig)' == 'true') AND Exists('$(MSBuildThisFileDirectory).Build\Targets\BuildEnv.targets')" />
+
+  <!-- Apps.Config: copia config compartilhada para apps com UseAppsConfig -->
+  <Import Project="$(MSBuildThisFileDirectory).Build\Targets\AppsConfig.targets" Condition="'$(UseAppsConfig)' == 'true'" />
 
 </Project>

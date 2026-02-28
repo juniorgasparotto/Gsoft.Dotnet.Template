@@ -5,5 +5,6 @@ var executor = builder.AddProject<Projects.ToDoSystem_Worker_Executor>("todystem
 var scheduler = builder.AddProject<Projects.ToDoSystem_Worker_Scheduler>("todystem-worker-scheduler");
 builder.AddProject<Projects.ToDoSystem_Worker_Dashboard>("todystem-worker-dashboard");
 builder.AddProject<Projects.ToDoSystem_Worker_Jobs>("todystem-worker-jobs");
+builder.AddProject<Projects.Admin>("admin");
 
 builder.Build().Run();

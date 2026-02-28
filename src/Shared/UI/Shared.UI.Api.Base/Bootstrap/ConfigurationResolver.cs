@@ -22,12 +22,19 @@ internal class DefaultConfigurationResolver : IConfigurationResolver
         string[] args
     )
     {
-        // Carregar arquivos de configuração padrão da aplicação (appsettings.json e appsettings.{Environment}.json) a partir do diretório base da aplicação
-        if (AppContext.BaseDirectory != Directory.GetCurrentDirectory())
+        var baseDir = AppContext.BaseDirectory;
+
+        // Carregar Apps.Config primeiro (configurações compartilhadas) – base para todos os apps
+        builder.Configuration
+            .AddJsonFile(Path.Combine(baseDir, "Config", "appsettings.json"), optional: true, reloadOnChange: true)
+            .AddJsonFile(Path.Combine(baseDir, "Config", $"appsettings.{builder.Environment.EnvironmentName}.json"), optional: true, reloadOnChange: true);
+
+        // Carregar arquivos de configuração da aplicação (appsettings.json e appsettings.{Environment}.json)
+        if (baseDir != Directory.GetCurrentDirectory())
         {
             builder.Configuration
-                .AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"), optional: true, reloadOnChange: true)
-                .AddJsonFile(Path.Combine(AppContext.BaseDirectory, $"appsettings.{builder.Environment.EnvironmentName}.json"), optional: true, reloadOnChange: true);
+                .AddJsonFile(Path.Combine(baseDir, "appsettings.json"), optional: true, reloadOnChange: true)
+                .AddJsonFile(Path.Combine(baseDir, $"appsettings.{builder.Environment.EnvironmentName}.json"), optional: true, reloadOnChange: true);
         }
 
         // Carregar arquivos de configuração específicos de cada módulo

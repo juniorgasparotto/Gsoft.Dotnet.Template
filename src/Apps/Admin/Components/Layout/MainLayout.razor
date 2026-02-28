@@ -1,0 +1,18 @@
+@inherits LayoutComponentBase
+
+<div class="app">
+    <header class="app-header">
+        <h1><a href="/">Admin</a> | SQLite Browser | <a href="/hangfire">Hangfire</a></h1>
+        @if (!string.IsNullOrEmpty(State.DatabasesFolderPath))
+        {
+            <span class="path">@State.DatabasesFolderPath</span>
+        }
+    </header>
+    <main class="app-main">
+        @Body
+    </main>
+</div>
+
+@code {
+    [CascadingParameter] public SqliteBrowser.UI.Services.SqliteBrowserStateService State { get; set; } = null!;
+}

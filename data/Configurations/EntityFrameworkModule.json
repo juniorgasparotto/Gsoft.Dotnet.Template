@@ -1,0 +1,53 @@
+{
+  "EntityFrameworkModule": {
+    "Enabled": true,
+    "DbContexts": [
+      {
+        "Name": null,
+        "DefaultProvider": "Sqlite",
+        "EnableLogging": true,
+        "Seed": {
+          "Path": "./Configurations/Seeds/**/*.json",
+          "Mode": "UpsertOrDelete"
+        },
+        "Conventions": [
+          {
+            "Type": "EnumAsTableModelCustomizer",
+            "Enabled": true,
+            "HasData": true,
+            "EnumInclude": ["*"],
+            "EnumExclude": []
+          }
+        ],
+        "Providers": {
+          "Sqlite": {
+            "ConnectionString": "${ConnectionStrings:DefaultConnectionSqlite}",
+            "MigrationsHistoryTable": "__EFMigrationsHistory",
+            "MigrationsAssembly": "${SHARED_MAIN_ASSEMBLY_PREFIX}.UI.Migrations.Sqlite",
+            "EnableSensitiveDataLogging": false,
+            "EnableDetailedErrors": false,
+            "CommandTimeout": 30,
+            "EnableRetryOnFailure": false
+          },
+          "Postgres": {
+            "Enabled": true,
+            "ConnectionString": "${ConnectionStrings:DefaultConnectionPostgres}",
+            "MigrationsHistoryTable": "__EFMigrationsHistory",
+            "MigrationsAssembly": "${SHARED_MAIN_ASSEMBLY_PREFIX}.UI.Migrations.Postgres",
+            "EnableSensitiveDataLogging": false,
+            "EnableDetailedErrors": false,
+            "CommandTimeout": 30,
+            "EnableRetryOnFailure": true,
+            "MaxRetryCount": 3,
+            "MaxRetryDelaySeconds": 30
+          }
+        }
+      }
+    ]
+  },
+  "Behavior": {
+    "AutoApplyMigrations": false,
+    "AutoCreateDatabase": false,
+    "DefaultDeleteBehavior": "Restrict"
+  }
+}

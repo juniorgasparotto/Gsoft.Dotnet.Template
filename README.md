@@ -65,11 +65,11 @@ Ou abra `MeuProjeto\src\MeuProjeto.slnx` (só app) ou `MeuProjetoAll.slnx` (app 
 | Item | Descrição |
 |------|-----------|
 | **`.github/`** | Pasta para workflows (vazia no template). |
-| **`src/.Shared/`** | Submodule (este repo). Código Shared em `src/.Shared/src/Shared`. |
-| **`src/.App/`** | Aspire + projeto da aplicação (ex.: MeuProjeto). |
-| **`src/<Nome>.slnx`** | Solution só com .App. |
-| **`src/<Nome>All.slnx`** | Solution com .App + .Shared. |
-| **`src/Directory.Build.props`** | `SharedRoot = .Shared\src\Shared`. |
+| **`src/Shared/`** | Código Shared (Core, Infra, UI). |
+| **`src/Apps/`** | Aspire + projeto da aplicação (ex.: MeuProjeto). |
+| **`src/<Nome>.slnx`** | Solution só com Apps. |
+| **`src/<Nome>All.slnx`** | Solution com Apps + .Shared. |
+| **`src/Directory.Build.props`** | `SharedRoot = Shared`. |
 | **`README.md`, `.gitignore`, `version.json`, `.gitmodules`** | Na raiz do projeto. |
 
 Os arquivos `ToDoSystem.slnx` (só app) e `ToDoSystemAll.slnx` (app + Shared) ficam em `src/`.
@@ -81,4 +81,4 @@ Os arquivos `ToDoSystem.slnx` (só app) e `ToDoSystemAll.slnx` (app + Shared) fi
 | Pasta | Conteúdo |
 |-------|----------|
 | **Raiz do repo** | `.template.config/`, `.github/`, `src/`, `README.md`, `.gitignore`, `version.json`, `.gitmodules`. Instale com `dotnet new install .` na raiz. |
-| **`src/`** | `.App/` (Aspire + app), `.Shared/` (submodule), `ToDoSystem.slnx`, `ToDoSystemAll.slnx`, `Solution.slnx`, build props/targets. |
+| **`src/`** | `Apps/` (Aspire + app + Databases), `Shared/` (Core, Infra, UI), `.Build/`, `ToDoSystem.slnx`, `ToDoSystemAll.slnx`, `Solution.slnx`, build props/targets. |

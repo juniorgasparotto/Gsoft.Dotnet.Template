@@ -1,0 +1,38 @@
+{
+  "OpenTelemetryModule": {
+    "Logging": {
+      "Enabled": false,
+      "IncludeFormattedMessage": true,
+      "IncludeScopes": true,
+      "UseOtlpExporter": true
+    },
+    "Metrics": {
+      "Enabled": true,
+      "AspNetCoreInstrumentation": true,
+      "HttpClientInstrumentation": true,
+      "RuntimeInstrumentation": true,
+      "UseOtlpExporter": true
+    },
+    "Tracing": {
+      "Enabled": true,
+      "AspNetCoreInstrumentation": true,
+      "HttpClientInstrumentation": true,
+      "RecordException": true,
+      "ExcludePaths": [
+        "/health",
+        "/alive"
+      ],
+      "UseOtlpExporter": true
+    },
+    "ServiceDiscovery": {
+      "Enabled": true,
+      "AllowedSchemes": []
+    },
+    "HealthChecks": {
+      "Enabled": true,
+      "OnlyInDevelopment": true,
+      "HealthEndpointPath": "/health",
+      "AlivenessEndpointPath": "/alive"
+    }
+  }
+}

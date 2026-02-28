@@ -1,0 +1,10 @@
+/* Admin - estilos base */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a2e; color: #eee; }
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.app-header { background: #16213e; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 1rem; }
+.app-header h1 { margin: 0; font-size: 1.25rem; }
+.app-header h1 a { color: #4fc3f7; text-decoration: none; }
+.app-header h1 a:hover { color: #7eb8da; }
+.app-header .path { font-size: 0.8rem; color: #888; }
+.app-main { flex: 1; padding: 1rem; }
